@@ -1,28 +1,28 @@
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
-import useAuth from "../../Hooks/useAuth";
+// import useAuth from "../../Hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import loginImg from '../../assets/images/loginImg.jpg'
 import { ImSpinner9 } from "react-icons/im";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAuth from "../../Hooks/useAuth";
+
 
 
 
 const Login = () => {
-
   const {user, loginUser,loading, setLoading, loginWithGoogle} = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const axiosPublic = useAxiosPublic();
   console.log(location);
-  const gotoThere = location.state || '/';
+  // const gotoThere = location.state || '/';
+  // console.log(gotoThere);
 
-  useEffect(()=>{
-     if(user){
-       navigate(gotoThere);
-     }
-  },[user])
+  // useEffect(()=>{
+  //    if(user){
+  //      navigate(gotoThere);
+  //    }
+  // },[user])
 
 
   const handleLogin = async e =>{
@@ -48,18 +48,7 @@ const Login = () => {
   const handleGoogleLogin = async () =>{
   
      try{
-       const {user}  =  await loginWithGoogle()
-       
-       const userInfo = {
-        name: user?.displayName,
-        email:user?.email,
-        image:user?.photoURL,
-        role: "user",
-        badge: "Bronze",
-     };
-  
-     const { data } = await axiosPublic.post("/users", userInfo);
-      console.log(data);
+      await loginWithGoogle()
       toast.success("Successfully logged in with google!")
       navigate(gotoThere, {replace:true});
      
@@ -71,7 +60,7 @@ const Login = () => {
      } 
   }
 
-  if(user) return
+  // if(user) return
 
   return (
     <div className='flex justify-center items-center'>

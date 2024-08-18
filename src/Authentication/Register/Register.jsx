@@ -4,8 +4,8 @@ import useAuth from "../../Hooks/useAuth";
 import { useEffect } from "react";
 import { ImSpinner9 } from "react-icons/im";
 import RegisterImg from "../../assets/images/RegisterImg.png";
-import imageUpload from "../../Utils/ImageUpload";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import imageUpload from "../../Utils/ImageUpload";
 
 const Register = () => {
   const { user, setUser, createUser, updateUserProfile, loading, setLoading } =
@@ -27,6 +27,8 @@ const Register = () => {
     const email = form.email.value;
     const password = form.password.value;
 
+    console.log({name,image, email, password})
+
     try {
       setLoading(true);
 
@@ -45,19 +47,19 @@ const Register = () => {
         // Show user info without refresh
         setUser({ ...result?.user, displayName: name, photoURL: image_url });
 
-        const userInfo = {
-           name,
-           email,
-           image:image_url,
-           role: "user",
-           badge: "Bronze",
-        };
+        // const userInfo = {
+        //    name,
+        //    email,
+        //    image:image_url,
+        //    role: "user",
+        //    badge: "Bronze",
+        // };
 
-        const { data } = await axiosPublic.post("/users", userInfo);
-        if (data.insertedId) {
-          toast.success("Registered successfully!");
-          navigate("/");
-        }
+        // const { data } = await axiosPublic.post("/users", userInfo);
+        // if (data.insertedId) {
+        //   toast.success("Registered successfully!");
+        //   navigate("/");
+        // }
      
     } catch (err) {
       toast.error(err.message);
@@ -67,7 +69,7 @@ const Register = () => {
     }
   };
 
-  if (user) return;
+  // if (user) return;
 
   return (
     <div className="flex justify-center items-center">
